@@ -3,7 +3,7 @@ name: ci-cd-self healing app
 on:
   push:
     branches:
-      - default
+      - main
 
 jobs:
   build:
@@ -22,6 +22,7 @@ jobs:
     - name: Docker Build
       run: |
         docker build -t ${{ secrets.DOCKERUSER }}/self-heal-app:latest .
+
     - name: docker image
       run: |
         docker push ${{ secrets.DOCKERUSER }}/self-heal-app:latest
