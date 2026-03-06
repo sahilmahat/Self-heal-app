@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-healing-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: self-heal-app
+  template:
+    metadata:
+      labels:
+        app: self-heal-app
+    spec:
+      containers:
+      - name: self-heal-cicd
+        image: sahilmahat:latest
+        ports:
+        - containerPort: 5000
+
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+

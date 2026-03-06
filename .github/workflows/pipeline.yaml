@@ -1,0 +1,28 @@
+name: ci-cd-self healing app
+
+on:
+  push:
+    branches:
+      - default
+
+jobs:
+  build:
+    runs-on: ubuntu:latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v5
+
+    - name: login to Docker
+      uses: docker/login@v3
+      with:
+        username: ${{ secrets.DOCKERUSER }}
+        password: ${{ secrets.DOCKERPASS }}
+    
+    - name: Docker Build
+      run: |
+        docker build -t ${{ secrets.DOCKERUSER }}/self-heal-app:latest .
+    - name: docker image
+      run: |
+        docker push ${{ secrets.DOCKERUSER }}/self-heal-app:latest
+  
