@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: self-healing-deployment
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: self-heal-app
